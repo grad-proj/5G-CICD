@@ -50,7 +50,7 @@ pipeline {
 
 
 
-      stage('Free5gc') {
+      stage('Free5gc-2') {
          parallel {
             stage('Run free5gc-ausf') {
                steps {
