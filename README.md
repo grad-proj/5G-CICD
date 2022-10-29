@@ -1,4 +1,3 @@
-#a
 # towards5GS-helm
 
 [![Helm charts linting](https://github.com/Orange-OpenSource/towards5gs-helm/actions/workflows/helm-charts-testing.yml/badge.svg)](https://github.com/Orange-OpenSource/towards5gs-helm/actions/workflows/helm-charts-testing.yml)
