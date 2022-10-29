@@ -5,16 +5,16 @@ pipeline {
             steps {
                 parallel(
                 UE: {
-                    echo "This is branch a"
+                    echo "This is job UE"
                 },
                 gNB: {
-                    echo "This is branch b"
+                    echo "This is job gNB"
                 }
                 UPF: {
-                    echo "This is branch b"
+                    echo "This is job UPF"
                 }
                 N3IWF: {
-                    echo "This is branch b"
+                    echo "This is job N3IWF"
                 }
                 )
             }
@@ -23,10 +23,10 @@ pipeline {
             steps {
                 parallel(
                 AMF: {
-                    echo "This is branch a"
+                    echo "This is job AMF"
                 },
                 SMF: {
-                    echo "This is branch b"
+                    echo "This is job SMF"
                 }
                 )
             }
@@ -35,22 +35,22 @@ pipeline {
             steps {
                 parallel(
                 AUSF: {
-                    echo "This is branch a"
+                    echo "This is job UERANSIM"
                 },
                 NSSF: {
-                    echo "This is branch b"
+                    echo "This is job NSSF"
                 }
                 PCF: {
-                    echo "This is branch b"
+                    echo "This is job PCF"
                 }
                 NRF: {
-                    echo "This is branch b"
+                    echo "This is job NRF"
                 }
                 UDM: {
-                    echo "This is branch b"
+                    echo "This is job UDM"
                 }
                 UDR: {
-                    echo "This is branch b"
+                    echo "This is job UDR"
                 }
                 )
             }
