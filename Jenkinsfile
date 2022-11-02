@@ -12,11 +12,11 @@ pipeline {
          }
       }
 
-      stage('SCM Checkout'){
-        steps{
-            git 'https://github.com/grad-proj/5G-CICD.git'
-        }
-      }
+    //   stage('SCM Checkout'){
+    //     steps{
+    //         git 'https://github.com/grad-proj/5G-CICD.git'
+    //     }
+    //   }
         stage('docker build') {
             steps {
 
