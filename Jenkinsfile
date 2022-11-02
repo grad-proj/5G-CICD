@@ -1,7 +1,7 @@
 pipeline {
    agent any
 
-   enviroment {
+   environment {
     DOCKERHUB_CREDENTIALS = credentials(dockerhub-grad-project)
    }
 
