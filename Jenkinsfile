@@ -22,9 +22,9 @@ pipeline {
 
                 sh(script: """
                     cd Dockerfile/nf_nrf/
-                    docker images -a
-                    docker build -t gradproj/nrf:1.0.0 . 
-                    docker images -a                  
+                    sudo docker images -a
+                    sudo docker build -t gradproj/nrf:1.0.0 . 
+                    sudo docker images -a                  
                     cd ..
                 """)
                     }
