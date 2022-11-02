@@ -26,6 +26,7 @@ pipeline {
                     docker images -a                  
                     cd ..
                 """)
+                }
 
 
 
@@ -108,5 +109,3 @@ pipeline {
 
 //     }
 //     }
-
-
