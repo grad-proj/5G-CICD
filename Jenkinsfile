@@ -21,7 +21,7 @@ pipeline {
             steps {
 
                 sh(script: """
-                    cd Dockerfile/nf-nrf
+                    cd Dockerfile/nf-nrf/
                     docker images -a
                     docker build -t gradproj/nrf:1.0.0 . 
                     docker images -a                  
