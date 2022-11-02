@@ -1,6 +1,7 @@
 pipeline {
    agent any
-   enviroment{
+
+   enviroment {
     DOCKERHUB_CREDENTIALS = credentials(dockerhub-grad-project)
    }
 
@@ -11,11 +12,11 @@ pipeline {
          }
       }
 
-      stage('SCM Checkout')
+      stage('SCM Checkout'){
         steps{
             git 'https://github.com/grad-proj/5G-CICD.git'
         }
-
+      }
         stage('docker build') {
             steps {
 
