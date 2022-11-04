@@ -10,8 +10,6 @@ pipeline {
             steps {
                     sh(script:"""
                     #!/bin/bash
-                    mkdir /home/Free5GC
-                    cd /home/FreeGC
                     git clone https://github.com/free5gc/free5gc-compose
                     """)
             }
@@ -20,9 +18,9 @@ pipeline {
             steps {
                     sh(script:"""
                     #!/bin/bash
-                    cd /home/Free5GC/free5gc-compose/base
+                    cd free5gc-compose/base
                     docker build . -t gradproj/base
-                    cd /home/Free5GC/free5gc-compose/nf_ausf
+                    cd free5gc-compose/nf_ausf
                     docker build . -t gradproj/nf_ausf
                     """)
             }
