@@ -23,7 +23,7 @@ pipeline {
                     cd ..
                     ls
                     cd nf_ausf
-                    sed -i 's/free5gc/base / gradproj/base/g' Dockerfile
+                    sed -i -e 's/free5gc/base / gradproj/base/g' Dockerfile
                     docker build . -t gradproj/nf_ausf
                     """)
             }
