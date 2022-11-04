@@ -35,6 +35,14 @@ pipeline {
                   sudo docker build -t gradproj/nf-nrf:latest . 
                   sudo docker images -a                  
                   cd ..
+                  cd nf_pcf/
+                  sudo docker build -t gradproj/pcf:latest . 
+                  sudo docker images -a                  
+                  cd ..
+                  cd nf_nssf/
+                  sudo docker build -t gradproj/nssf:latest . 
+                  sudo docker images -a                  
+                  cd ..
                """)
                   }
                   }
@@ -42,6 +50,8 @@ pipeline {
 
                steps {
                   sh 'docker push gradproj/nf-nrf:latest'
+                  sh 'docker push gradproj/pcf:latest'
+                  sh 'docker push gradproj/nssf:latest'
                }
             }
 
