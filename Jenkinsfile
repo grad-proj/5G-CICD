@@ -12,11 +12,6 @@ pipeline {
          }
       }
 
-    //   stage('SCM Checkout'){
-    //     steps{
-    //         git 'https://github.com/grad-proj/5G-CICD.git'
-    //     }
-    //   }
       stage('Login to Dockerhub') {
          steps {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -46,7 +41,7 @@ pipeline {
                """)
                   }
                   }
-      stage('Push') {
+      stage('Pushing to Dockerhub') {
 
                steps {
                   sh 'docker push gradproj/nf-nrf:latest'
