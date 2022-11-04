@@ -1,58 +1,53 @@
 pipeline {
     agent any
     stages {
-        stage('UERANSIM') {
+        stage('Verify branch') {
             steps {
-                parallel(
-                UE: {
-                    echo "This is job UE"
-                },
-                gNB: {
-                    echo "This is job gNB"
-                }
-                UPF: {
-                    echo "This is job UPF"
-                }
-                N3IWF: {
-                    echo "This is job N3IWF"
-                }
-                )
+                echo "$GIT_BRANCH"
             }
         }
-        stage('essential micro-services') {
+        stage('getting Free5GC ready') {
             steps {
-                parallel(
-                AMF: {
-                    echo "This is job AMF"
-                },
-                SMF: {
-                    echo "This is job SMF"
-                }
-                )
+                    sh(script:"""
+                    #!/bin/bash
+                    mkdir /home/Free5GC
+                    cd /home/FreeGC
+                    git clone https://github.com/free5gc/free5gc-compose
+                    """)
             }
         }
-        stage('UERANSIM') {
+        stage('Build & Dockerize') {
             steps {
-                parallel(
-                AUSF: {
-                    echo "This is job UERANSIM"
-                },
-                NSSF: {
-                    echo "This is job NSSF"
+                    sh(script:"""
+                    #!/bin/bash
+                    cd /home/Free5GC/free5gc-compose/base
+                    docker build -t gradproj/base
+                    """)
+            }
+            steps {
+                    sh(script:"""
+                    #!/bin/bash
+                    cd /home/Free5GC/free5gc-compose/nf_ausf
+                    docker build -t gradproj/nf_ausf
+                    """)
+            }
+        }
+        stage('Push Container') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
+                    def image = docker.build("gradproj/base:latest")
+                    image.push()
+                    }
                 }
-                PCF: {
-                    echo "This is job PCF"
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
+                    def image = docker.build("gradproj/nf_ausf:latest")
+                    image.push()
+                    }
                 }
-                NRF: {
-                    echo "This is job NRF"
-                }
-                UDM: {
-                    echo "This is job UDM"
-                }
-                UDR: {
-                    echo "This is job UDR"
-                }
-                )
             }
         }
     }
