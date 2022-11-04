@@ -19,10 +19,8 @@ pipeline {
                     sh(script:"""
                     #!/bin/bash
                     cd free5gc-compose
-                    docker build -t gradproj/base:latest ./base
-                    docker image ls gradproj/base:latest
+                    docker build -t free5gc/base:latest ./base
                     cd nf_ausf
-                    sed -i -e 's/ "free5gc/base:latest" / "gradproj/base:latest" /g'
                     docker build . -t gradproj/nf_ausf:latest
                     """)
             }
@@ -30,13 +28,7 @@ pipeline {
         stage('Push Container') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
-                    def image = docker.build("gradproj/base:latest")
-                    image.push()
-                    }
-                }
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'Docker') {
                     def image = docker.build("gradproj/nf_ausf:latest")
                     image.push()
                     }
