@@ -92,7 +92,8 @@ pipeline {
          steps {
             sh 'docker images -a'
             sh """
-               cd /Dockerfile/nf_amf
+               pwd
+               ls
                docker build -t gradproj/amf .
                docker images -a
                
