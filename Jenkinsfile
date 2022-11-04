@@ -19,6 +19,7 @@ pipeline {
                     sh(script:"""
                     #!/bin/bash
                     cd free5gc-compose
+                    /usr/bin/make --version
                     make base
                     cd ..
                     cd nf_ausf
