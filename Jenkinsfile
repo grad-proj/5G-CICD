@@ -92,7 +92,7 @@ pipeline {
          steps {
             sh 'docker images -a'
             sh """
-               cd /Gradproject/5G-CICD/Dockerfile/nf_amf
+               cd /Gradproject /5G-CICD /Dockerfile /nf_amf
                docker build -t gradproj/amf .
                docker images -a
                
