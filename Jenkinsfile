@@ -6,21 +6,20 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
-      //   stage('getting Free5GC ready') {
-      //       steps {
-      //               sh(script:"""
-      //               #!/bin/bash
-      //               git clone https://github.com/free5gc/free5gc-compose
-      //               """)
-      //       }
-      //   }
+        stage('getting Free5GC ready') {
+            steps {
+                    sh(script:"""
+                    #!/bin/bash
+                    git clone https://github.com/free5gc/free5gc-compose
+                    """)
+            }
+        }
         stage('Build & Dockerize') {
             steps {
                     sh(script:"""
                     #!/bin/bash
                     cd free5gc-compose/base
-                    docker build . -t gradproj/base bash
-                    docker run gradproj/base
+                    docker build . -t gradproj/base
                     cd ..
                     cd nf_ausf
                     docker build . -t gradproj/nf_ausf
