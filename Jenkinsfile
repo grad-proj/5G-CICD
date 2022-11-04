@@ -90,17 +90,14 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            sh 'docker images -a'
-
-            sh """
-               dir("/Dockerfile/nf_amf") {
-                   sh "docker build -t gradproj/amf  ."
-            }
-               docker images -a
-               
-
-               
-            """
+               sh(script: """
+                  cd Dockerfile/
+                 
+                  cd nf_amf/
+                  sudo docker images -a
+                  sudo docker build -t gradproj/nf-amf . 
+                  sudo docker images -a 
+            """)
          }
       }
       stage ('Push Docker image'){
