@@ -100,8 +100,8 @@ pipeline {
 
                   cd ..
                   cd nf_n3iwf/
-                  sudo docker build -t gradproj/n3iwf . 
-                  sudo docker images -a                  
+                   docker build -t gradproj/n3iwf . 
+                   docker images -a                  
             """)
          }
       }
