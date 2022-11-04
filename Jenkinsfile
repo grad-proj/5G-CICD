@@ -30,7 +30,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'Docker') {
-                    image.push('gradproj/nf_ausf:latest')
+                    def image = gradproj/nf_ausf:latest
+                    image.push()
                     }
                 }
             }
