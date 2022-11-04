@@ -17,22 +17,37 @@ pipeline {
     //         git 'https://github.com/grad-proj/5G-CICD.git'
     //     }
     //   }
-        stage('docker build') {
-            steps {
+      stage('Login to Dockerhub') {
+         steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+         }
+      }
+         
+      
+      stage('docker build') {
+         steps {
 
-                sh(script: """
-                    cd Dockerfile/
-                    make base
-                    cd nf_nrf/
-                    sudo docker images -a
-                    sudo docker build -t gradproj/nf-nrf:latest . 
-                    sudo docker images -a                  
-                    cd ..
-                """)
-                    }
-                    }
-   }
-}
+               sh(script: """
+                  cd Dockerfile/
+                  make base
+                  cd nf_nrf/
+                  sudo docker images -a
+                  sudo docker build -t gradproj/nf-nrf:latest . 
+                  sudo docker images -a                  
+                  cd ..
+               """)
+                  }
+                  }
+      stage('Push') {
+
+               steps {
+                  sh 'docker push gradproj/nf-nrf:latest'
+               }
+            }
+
+         }
+      }
+
 
 
 //       stage('Ueransim') {
