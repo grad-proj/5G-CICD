@@ -31,6 +31,8 @@ pipeline {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'Docker') {
                     sh(script:"""
+                    docker tag free5gc/base:latest gradproj/base:latest
+                    docker push gradproj/base:latest
                     docker push gradproj/nf_ausf:latest
                     """)
                     }
