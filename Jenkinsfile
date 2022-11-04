@@ -1,93 +1,44 @@
 pipeline {
    agent any
+   environment {
+    DOCKERHUB_CREDENTIALS=credentials('dockerhub_credentials')
+   }
 
    stages {
-      stage('Verify Branch') {
-         steps {
-            echo "$GIT_BRANCH"
-         }
-      }
-
-
-
-
-      stage('Ueransim') {
-         parallel {
-            stage('Run gnb') {
-               steps {
-                  echo "command"
-
-               }
+        stage('Verify Branch') {
+            steps {
+                echo "$GIT_BRANCH"
             }
-            stage('Run ue') {
-               steps {
-                  echo "command"
-               }
+        }
+        stage('Login to DockerHub') {
+
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
-         }
-         }
-
-
-
-
-
-      stage('Free5gc') {
-         parallel {
-            stage('Run free5gc-amf') {
-               steps {
-                  echo "command"
-
-               }
-            }
-            stage('Run free5gc-smf') {
-               steps {
-                  echo "command"
-               }
-            }
-         }
-         }
-
-
-
-
-      stage('Free5gc-2') {
-         parallel {
-            stage('Run free5gc-ausf') {
-               steps {
-                  echo "command"
-
-               }
-            }
-            stage('Run free5gc-nssf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-pcf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-nrf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-udm') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-udr') {
-               steps {
-                  echo "command"
-               }
-            }
-         }
-         }
-
-
+        }
+        stage('build and push udr image') {
+            steps {
+                sh(script: """
+                    docker images
+                    make base
+                    cd nf_udr
+                    docker build -t gradproj/udr .
+                    docker push gradproj/udr
+                    cd ..
+                """)
+                }
+        }
+        stage('build and push webui image') {
+            steps {
+                sh(script: """
+                    docker images
+                    make base
+                    cd webui
+                    docker build -t gradproj/webui .
+                    docker push gradproj/webui
+                    cd ..
+                """)
+                }
+        }
     }
-    }
-
-
+}
