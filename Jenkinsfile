@@ -18,6 +18,8 @@ pipeline {
             steps {
                     sh(script:"""
                     #!/bin/bash
+                    cd free5gc-compose
+                    make base
                     cd free5gc-compose/base
                     docker build . -t gradproj/base
                     cd ..
