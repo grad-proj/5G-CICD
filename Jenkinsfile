@@ -22,6 +22,7 @@ pipeline {
                     docker build -t gradproj/base:latest ./base
                     docker image ls gradproj/base:latest
                     cd nf_ausf
+                    sed -i -e 's/ "free5gc/base:latest" / "gradproj/base:latest" /g'
                     docker build . -t gradproj/nf_ausf:latest
                     """)
             }
