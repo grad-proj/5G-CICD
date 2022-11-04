@@ -20,7 +20,6 @@ pipeline {
                     #!/bin/bash
                     cd free5gc-compose
                     docker build -t gradproj/base ./base
-                    cd ..
                     ls
                     cd nf_ausf
                     docker build . -t gradproj/nf_ausf
