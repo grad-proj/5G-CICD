@@ -18,7 +18,6 @@ pipeline {
             steps {
                     sh(script:"""
                     #!/bin/bash
-                    cd free5gc-compose
                     make base
                     cd ..
                     cd nf_ausf
