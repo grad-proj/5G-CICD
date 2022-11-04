@@ -87,6 +87,33 @@ pipeline {
          }
 
 
+
+      stage('Docker Build') {
+         steps {
+            sh 'docker images -a'
+            sh """
+             
+               docker build -t gradproj/amf .
+               docker images -a
+               
+            """
+         }
+      }
+      stage ('Push Docker image'){
+
+            steps{
+                echo "============Pushing Docker image==========="
+             withCredentials([usernamePassword(credentialsId: 'DockerHUB', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+                {
+                sh """
+                    docker login -u ${USERNAME} -p ${PASSWORD}
+                    docker push gradproj/amf:latest
+                    """ 
+                }
+            }
+
+
+
     }
     }
 
