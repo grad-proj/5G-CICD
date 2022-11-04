@@ -94,9 +94,9 @@ pipeline {
                   cd Dockerfile/
                  
                   cd nf_amf/
-                  sudo docker images -a
-                  sudo docker build -t gradproj/nf-amf . 
-                  sudo docker images -a 
+                   docker images -a
+                   docker build -t gradproj/nf-amf . 
+                   docker images -a 
             """)
          }
       }
