@@ -91,10 +91,14 @@ pipeline {
       stage('Docker Build') {
          steps {
             sh 'docker images -a'
+
             sh """
-               cd /Dockerfile/nf_amf
-               docker build -t gradproj/amf .
+               dir("/Dockerfile/nf_amf") {
+                   sh "docker build -t gradproj/amf  ."
+            }
                docker images -a
+               
+
                
             """
          }
