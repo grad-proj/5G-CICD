@@ -19,10 +19,10 @@ pipeline {
                     sh(script:"""
                     #!/bin/bash
                     cd free5gc-compose
-                    docker build -t gradproj/base ./base
-                    ls
-                    cd nf_amf
-                    docker build . -t gradproj/nf_amf
+                    docker build -t gradproj/base:latest ./base
+                    docker image ls gradproj/base:latest
+                    cd nf_ausf
+                    docker build . -t gradproj/nf_ausf:latest
                     """)
             }
         }
