@@ -93,7 +93,7 @@ pipeline {
             sh 'docker images -a'
             sh """
              
-               docker build -t gradproj/AMF .
+               docker build -t gradproj/amf .
                docker images -a
                
             """
@@ -107,7 +107,7 @@ pipeline {
                 {
                 sh """
                     docker login -u ${USERNAME} -p ${PASSWORD}
-                    docker push gradproj/AMF:latest
+                    docker push gradproj/amf:latest
                     """ 
                 }
             }
