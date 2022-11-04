@@ -21,9 +21,7 @@ pipeline {
                     cd free5gc-compose/base
                     docker build . -t gradproj/base
                     cd ..
-                    ls
                     cd nf_ausf
-                    sed -i -e 's/free5gc/base / gradproj/base/g' Dockerfile
                     docker build . -t gradproj/nf_ausf
                     """)
             }
