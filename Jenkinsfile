@@ -21,8 +21,9 @@ pipeline {
             steps {
 
                 sh(script: """
+                    cd Dockerfile/
                     make base
-                    cd Dockerfile/nf_nrf/
+                    cd nf_nrf/
                     sudo docker images -a
                     sudo docker build -t gradproj/nf-nrf:latest . 
                     sudo docker images -a                  
