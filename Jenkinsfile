@@ -97,6 +97,11 @@ pipeline {
                    docker images -a
                    docker build -t gradproj/nf-amf . 
                    docker images -a 
+
+                  cd ..
+                  cd nf_n3iwf/
+                  sudo docker build -t gradproj/n3iwf . 
+                  sudo docker images -a                  
             """)
          }
       }
@@ -109,6 +114,7 @@ pipeline {
                 sh """
                     docker login -u ${USERNAME} -p ${PASSWORD}
                     docker push gradproj/amf:latest
+                    docker push gradproj/n3iwf:latest
                     """ 
                 }
             }
