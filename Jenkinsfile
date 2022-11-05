@@ -8,7 +8,7 @@ pipeline {
          steps {
             echo "$GIT_BRANCH"
          }
-      }
+      } 
 //
 //
 //
