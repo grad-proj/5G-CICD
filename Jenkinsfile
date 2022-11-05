@@ -100,6 +100,7 @@ environment {
                              
                               cd ..
                               cd /nf_udm/
+                              docker scan
                               docker build -t gradproj/nf_udm . 
                               docker images -a                  
                         """)
