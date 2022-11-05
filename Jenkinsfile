@@ -1,18 +1,15 @@
 pipeline {
    agent any
 
-
+   environment {
+      dockerhub=credentials('dockerhub')
+   }
    
    stages {
       stage('Verify Branch') {
          steps {
             echo "$GIT_BRANCH"
-             withCredentials([usernamePassword(credentialsId: 'DockerHUB', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
-                {
-                sh """
-                    docker login -u ${USERNAME} -p ${PASSWORD}
-                  """
-                }
+             
          }
       } 
 //
@@ -97,12 +94,7 @@ pipeline {
                stage('Login') {
                        steps{
                 
-             withCredentials([usernamePassword(credentialsId: 'DockerHUB', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
-                {
-                sh """
-                    docker login -u ${USERNAME} -p ${PASSWORD}
-                  """
-                }
+                 sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
                
             }
                }
