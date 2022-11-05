@@ -21,7 +21,7 @@ pipeline {
             }
            
         }
-               }
+               
             stage('Docker Build for "smf" and "udm"') {
                      steps {
                            sh(script: """
