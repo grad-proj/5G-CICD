@@ -90,6 +90,12 @@ environment {
  //        }
  //        }
 
+               stage('Login') {
+                        steps {
+                           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        }
+                     
+                  }
             stage('Docker Build for "smf" and "udm"') {
                      steps {
                            sh(script: """
@@ -109,12 +115,7 @@ environment {
                   }
 
 
-                  stage('Login') {
-                        steps {
-                           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                        }
-                     
-                  }
+                  
                   stage('Push images in Docker-Hube') {
                         steps {
 
