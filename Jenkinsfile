@@ -22,7 +22,7 @@ pipeline {
                     docker build -t free5gc/base:latest ./base
                     cd nf_ausf
                     ls
-                    docker build . -t gradproj/nf_ausf:latest
+                    docker build . -t gradproj/ausf:latest
                     """)
             }
         }
@@ -33,7 +33,7 @@ pipeline {
                     sh(script:"""
                     docker tag free5gc/base:latest gradproj/base:latest
                     docker push gradproj/base:latest
-                    docker push gradproj/nf_ausf:latest
+                    docker push gradproj/ausf:latest
                     """)
                     }
                 }
