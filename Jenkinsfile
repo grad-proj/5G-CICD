@@ -97,12 +97,11 @@ environment {
                   
                               docker images -a
                               docker build -t gradproj/nf-smf . 
-                              docker scan gradproj/nf-smf
-                              y
+                              
                              
                               cd ..
                               cd /nf_udm/
-                              docker scan
+                              docker scan gradproj/nf_udm
                               docker build -t gradproj/nf_udm . 
                               docker images -a                  
                         """)
