@@ -2,9 +2,7 @@ pipeline {
    agent any
 
 
-   environment {
-    DOCKERHUB_CREDENTIALS=credentials('Docker_hub_pro')
-   }
+   
    stages {
       stage('Verify Branch') {
          steps {
@@ -91,11 +89,17 @@ pipeline {
  //        }
 
                stage('Login') {
-                        steps {
-                           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                        }
-                     
-                  }
+                       steps{
+                
+             withCredentials([usernamePassword(credentialsId: 'DockerHUB', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+                {
+                sh """
+                    docker login -u ${USERNAME} -p ${PASSWORD}
+                  """
+                }
+               
+            }
+               }
             stage('Docker Build for "smf" and "udm"') {
                      steps {
                            sh(script: """
