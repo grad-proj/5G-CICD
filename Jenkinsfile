@@ -1,9 +1,9 @@
 pipeline {
    agent any
 
-   environment {
-      dockerhub=credentials('dockerhub')
-   }
+  environment {
+    DOCKERHUB_CREDENTIALS=credentials('DockerHub')
+}
    
    stages {
       stage('Verify Branch') {
@@ -12,6 +12,52 @@ pipeline {
              
          }
       } 
+
+
+
+      stage('Login') {
+            steps {
+               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+           
+        }
+               }
+            stage('Docker Build for "smf" and "udm"') {
+                     steps {
+                           sh(script: """
+                              cd free5gc-compose-master/nf_udm/
+                  
+                              docker images -a
+                              
+                              docker build -t gradproj/nf_udm . 
+                              docker images -a                  
+                        """)
+                     }
+                  }
+
+
+                  
+                  stage('Push images in Docker-Hube') {
+                        steps {
+
+                        
+                           sh(script: """
+
+                              docker push gradproj/nf_smf:latest
+                              docker push gradproj/nf_udm:latest
+
+                              """ 
+                           )
+                           }
+
+                  }   
+
+                   stage('Logout') {
+                     steps {
+                         sh 'docker logout'
+                             }
+           
+                   }  
 //
 //
 //
@@ -52,15 +98,12 @@ pipeline {
  //        }
  //        }
 //
-//
-//
-//
  //     stage('Free5gc-2') {
  //        parallel {
  //           stage('Run free5gc-ausf') {
  //              steps {
  //                 echo "command"
-//
+
  //              }
  //           }
  //           stage('Run free5gc-nssf') {
@@ -91,49 +134,10 @@ pipeline {
  //        }
  //        }
 
-               stage('Login') {
-                       steps{
-                
-                 sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR -p $dockerhub_PSW --password-stdin'
+
+
+
                
-            }
-               }
-            stage('Docker Build for "smf" and "udm"') {
-                     steps {
-                           sh(script: """
-                              cd free5gc-compose-master/nf_udm/
-                  
-                              docker images -a
-                              
-                              docker build -t gradproj/nf_udm . 
-                              docker images -a                  
-                        """)
-                     }
-                  }
-
-
-                  
-                  stage('Push images in Docker-Hube') {
-                        steps {
-
-                        
-                           sh(script: """
-
-                              docker push gradproj/nf_smf:latest
-                              docker push gradproj/nf_udm:latest
-
-                              """ 
-                           )
-                           }
-
-                  }   
-
-                   stage('Logout') {
-                     steps {
-                         sh 'docker logout'
-                             }
-           
-                   }  
 
 
 
