@@ -10,7 +10,7 @@ pipeline {
             steps {
                     sh(script:"""
                     #!/bin/bash
-                    git clone -f https://github.com/free5gc/free5gc-compose
+                    git clone --mirror https://github.com/free5gc/free5gc-compose
                     """)
             }
         }
