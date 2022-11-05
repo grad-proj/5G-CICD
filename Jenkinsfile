@@ -97,7 +97,7 @@ environment {
                   
                               docker images -a
                               docker build -t gradproj/nf-smf . 
-                               docker scan gradproj/nf-smf
+                              docker scan gradproj/nf-smf
                              
                               cd ..
                               cd /nf_udm/
