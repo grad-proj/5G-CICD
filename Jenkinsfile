@@ -7,6 +7,12 @@ pipeline {
       stage('Verify Branch') {
          steps {
             echo "$GIT_BRANCH"
+             withCredentials([usernamePassword(credentialsId: 'DockerHUB', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+                {
+                sh """
+                    docker login -u ${USERNAME} -p ${PASSWORD}
+                  """
+                }
          }
       } 
 //
