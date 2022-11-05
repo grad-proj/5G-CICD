@@ -99,15 +99,10 @@ pipeline {
             stage('Docker Build for "smf" and "udm"') {
                      steps {
                            sh(script: """
-                              cd free5gc-compose-master/nf_smf/
+                              cd free5gc-compose-master/nf_udm/
                   
                               docker images -a
-                              docker build -t gradproj/nf-smf . 
                               
-                             
-                              cd ..
-                              cd /nf_udm/
-                              docker scan gradproj/nf_udm
                               docker build -t gradproj/nf_udm . 
                               docker images -a                  
                         """)
