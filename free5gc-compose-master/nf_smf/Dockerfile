@@ -14,10 +14,9 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl n
 WORKDIR /free5gc
 RUN mkdir -p config/ log/ config/TLS/
 
-# Copy executable and default certs
+# Copy executable and default certs reomve (default certs)
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
-COPY --from=builder /free5gc/config/TLS/${F5GC_MODULE}.pem ./config/TLS/
-COPY --from=builder /free5gc/config/TLS/${F5GC_MODULE}.key ./config/TLS/
+
 
 # Config files volume
 VOLUME [ "/free5gc/config" ]
