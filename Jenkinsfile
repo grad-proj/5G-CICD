@@ -1,6 +1,10 @@
 pipeline {
    agent any
 
+
+environment {
+    DOCKERHUB_CREDENTIALS=credentials('Docker_hub_pro')
+   }
    stages {
       stage('Verify Branch') {
          steps {
@@ -86,8 +90,63 @@ pipeline {
          }
          }
 
+            stage('Docker Build for "smf" and "udm"') {
+                     steps {
+                           sh(script: """
+                              cd free5gc-compose-master/nf_smf/
+                  
+                              docker images -a
+                              docker build -t gradproj/nf-smf . 
+                             
+                              cd ..
+                              cd free5gc-compose-master/nf_udm/
+                              docker build -t gradproj/nf_udm . 
+                              docker images -a                  
+                        """)
+                     }
+                  }
 
+
+                  stage('Login') {
+                        steps {
+                           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        }
+                     
+                  }
+                  stage('Push images in Docker-Hube') {
+                        steps {
+
+                        
+                           sh(script: """
+
+                              docker push gradproj/nf_smf:latest
+                              docker push gradproj/nf_udm:latest
+
+                              """ 
+                           )
+                           }
+
+                  }   
+                      
+                   stage('Logout') {
+                     steps {
+                         sh 'docker logout'
+                             }
+           
+                   }  
+
+
+
+
+                  
     }
     }
 
 
+  
+
+
+
+
+
+ 
