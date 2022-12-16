@@ -50,41 +50,41 @@ pipeline {
 
 
 
-      stage('Free5gc-2') {
-         parallel {
-            stage('Run free5gc-ausf') {
-               steps {
-                  echo "command"
-
-               }
-            }
-            stage('Run free5gc-nssf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-pcf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-nrf') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-udm') {
-               steps {
-                  echo "command"
-               }
-            }
-            stage('Run free5gc-udr') {
-               steps {
-                  echo "command"
-               }
-            }
-         }
-         }
+   //  stage('Free5gc-2') {
+     //    parallel {
+       //     stage('Run free5gc-ausf') {
+         //      steps {
+        //          echo "command"
+//
+  //             }
+    //        }
+     //       stage('Run free5gc-nssf') {
+       //        steps {
+        //          echo "command"
+          //     }
+      //      }
+    //        stage('Run free5gc-pcf') {
+      //         steps {
+        //          echo "command"
+        //       }
+       //     }
+      //      stage('Run free5gc-nrf') {
+      //         steps {
+      //            echo "command"
+      //         }
+    //        }
+      //      stage('Run free5gc-udm') {
+    //           steps {
+   //               echo "command"
+  //             }
+   //         }
+    //        stage('Run free5gc-udr') {
+     //          steps {
+    //              echo "command"
+   //            }
+  //          }
+  //       }
+//         }
 
 
 
@@ -98,10 +98,7 @@ pipeline {
                    docker build -t gradproj/nf-amf . 
                    docker images -a 
 
-                  cd ..
-                  cd nf_n3iwf/
-                   docker build -t gradproj/n3iwf . 
-                   docker images -a                  
+                                    
             """)
          }
       }
@@ -114,14 +111,19 @@ pipeline {
                 sh """
                     docker login -u ${USERNAME} -p ${PASSWORD}
                     docker push gradproj/amf:latest
-                    docker push gradproj/n3iwf:latest
+                    
                     """ 
                 }
             }
 
-
-
     }
+
+      stage('Deploy'){
+            steps {
+                 sh 'kubectl apply -f deployment.yaml'
+            }
+        }
+
     }
 
     }
