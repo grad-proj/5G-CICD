@@ -1,0 +1,22 @@
+apiversion: apps/v1
+kind: Deployment
+metadata:
+  name: amf-deployment
+  labels:
+    app: amf
+spec:
+  selector:
+    matchlabels:
+      app: amf
+  template:
+    metadata:
+      name: amf-deployment
+      labels:
+        app: amf
+      
+  spec:
+    containers:
+    - name: amf
+      image: gradproj/amf
+      ports:
+      - containerport: 8080
